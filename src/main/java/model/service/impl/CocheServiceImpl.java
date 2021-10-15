@@ -115,18 +115,16 @@ public class CocheServiceImpl implements CocheService {
 	@Override
 	public void exportToExcel() {
 		
-		List<Coche> coches = this.listar();
 		Workbook workbook = new HSSFWorkbook();
-		String[] headers = {"Marca", "Modelo", "Km's", "Matricula"};
 		Sheet sheet = workbook.createSheet("Choches");
 		
 		int numeroRenglon = 0;
 
 		Row rowHeader = sheet.createRow(numeroRenglon++);
 		
-		printHeaderExcel(headers, rowHeader);
+		printHeaderExcel(rowHeader);
 		
-		printCarsExcel(coches, sheet, numeroRenglon);
+		printCarsExcel(sheet, numeroRenglon);
 		
 		try {
             FileOutputStream out = new FileOutputStream(new File("src/main/resources/coches.xlsx"));
@@ -140,7 +138,16 @@ public class CocheServiceImpl implements CocheService {
 	
 	}
 
-	private void printCarsExcel(List<Coche> coches, Sheet sheet, int numeroRenglon) {
+	/**
+	 * Printa los atributos de los coches en la tabla del excel
+	 * @param coches
+	 * @param sheet
+	 * @param numeroRenglon
+	 */
+	private void printCarsExcel(Sheet sheet, int numeroRenglon) {
+		
+		List<Coche> coches = this.listar();
+		
 		for (int i = 0; i < coches.size(); i++) {
 			
 			Row row = sheet.createRow(numeroRenglon++);
@@ -159,7 +166,13 @@ public class CocheServiceImpl implements CocheService {
 		}
 	}
 
-	private void printHeaderExcel(String[] headers, Row rowHeader) {
+	/**
+	 * Printa el nombre de los atributos de los objetos tipo coche
+	 * @param headers
+	 * @param rowHeader
+	 */
+	private void printHeaderExcel(Row rowHeader) {
+		String[] headers = {"Marca", "Modelo", "Km's", "Matricula"};
 		for (int i = 0; i < headers.length; i++) {
 			Cell cell = rowHeader.createCell(i);
 			cell.setCellValue(headers[i]);
@@ -172,9 +185,6 @@ public class CocheServiceImpl implements CocheService {
 	@Override
 	public void exportToPdf() {
 		
-		List<Coche> coches = this.listar();
-		String[] headers = {"Marca", "Modelo", "Km's", "Matricula"};
-		
 		try (PDDocument doc = new PDDocument()) {
 
 			PDPage myPage = new PDPage();
@@ -182,9 +192,9 @@ public class CocheServiceImpl implements CocheService {
 
 			try (PDPageContentStream cont = new PDPageContentStream(doc, myPage)) {
 
-				printTitlePdf(headers, cont);
+				printTitlePdf(cont);
 				
-				printVehiclesPdf(coches, cont);
+				printVehiclesPdf(cont);
 
 				cont.endText();		
 				
@@ -201,7 +211,15 @@ public class CocheServiceImpl implements CocheService {
 		}
 	}
 
-	private void printVehiclesPdf(List<Coche> coches, PDPageContentStream cont) throws IOException {
+	/**
+	 * Printa los coches de la base de datos en el pdf
+	 * @param cont
+	 * @throws IOException
+	 */
+	private void printVehiclesPdf(PDPageContentStream cont) throws IOException {
+		
+		List<Coche> coches = this.listar();
+		
 		for (int i = 0; i < coches.size(); i++) {
 			String carLine = coches.get(i).getMarca() + " " + coches.get(i).getModel() + " " +
 							coches.get(i).getKm() + " " + coches.get(i).getMatricula();
@@ -210,7 +228,15 @@ public class CocheServiceImpl implements CocheService {
 		}
 	}
 
-	private void printTitlePdf(String[] headers, PDPageContentStream cont) throws IOException {
+	/**
+	 * Printa el nombre de los atributos del titulo en el pdf
+	 * @param cont
+	 * @throws IOException
+	 */
+	private void printTitlePdf(PDPageContentStream cont) throws IOException {
+		
+		String[] headers = {"Marca", "Modelo", "Km's", "Matricula"};
+		
 		cont.beginText();
 
 		cont.setFont(PDType1Font.TIMES_ROMAN, 12);
