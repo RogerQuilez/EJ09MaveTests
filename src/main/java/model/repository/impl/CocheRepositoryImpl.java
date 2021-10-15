@@ -174,8 +174,8 @@ public class CocheRepositoryImpl implements CocheRepository{
 				coche.setId(rs.getInt(1));
 				coche.setMarca(rs.getString(2));
 				coche.setModel(rs.getString(3));
-				coche.setMatricula(rs.getString(4));
-				coche.setKm(rs.getInt(5));
+				coche.setKm(rs.getInt(4));
+				coche.setMatricula(rs.getString(5));
 			}
 		} catch (SQLException e) {
 			System.out.println("obtener -> error al obtener la "
