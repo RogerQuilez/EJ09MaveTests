@@ -72,7 +72,7 @@ public class Main {
 				+ "\t 3. Find Car By Id\n"
 				+ "\t 4. Update existent car\n"
 				+ "\t 5. Delete a car\n"
-				+ "\t 6. Export BBDD to PDF\n"
+				+ "\t 6. Export BBDD to Excel\n"
 				+ "\t 0. Exit");
 				
 	}
