@@ -155,14 +155,10 @@ public class CocheServiceImpl implements CocheService {
 			
 			int numeroCelda = 0;
 			
-			Cell cell = row.createCell(numeroCelda++);
-			cell.setCellValue(c.getMarca());
-			cell = row.createCell(numeroCelda++);
-			cell.setCellValue(c.getModel());
-			cell = row.createCell(numeroCelda++);
-			cell.setCellValue(c.getKm());
-			cell = row.createCell(numeroCelda++);
-			cell.setCellValue(c.getMatricula());
+			row.createCell(numeroCelda++).setCellValue(c.getMarca());
+			row.createCell(numeroCelda++).setCellValue(c.getModel());;
+			row.createCell(numeroCelda++).setCellValue(c.getKm());
+			row.createCell(numeroCelda++).setCellValue(c.getMatricula());
 		}
 	}
 
